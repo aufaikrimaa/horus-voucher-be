@@ -4,16 +4,13 @@ var router = express.Router();
 const authRouter = require("./authRouter");
 const userRouter = require("./userRouter");
 const vouchersRouter = require("./vouchersRouter");
-const users = require("./users");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
+  res.render("index", { title: "API Horus Tech Vouchers" });
 });
-router.use(authRouter);
+router.use("/auth", authRouter);
 router.use(userRouter);
-router.use(vouchersRouter);
-
-// router.use("/users", users);
+router.use("/voucher", vouchersRouter);
 
 module.exports = router;

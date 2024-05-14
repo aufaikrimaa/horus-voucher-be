@@ -18,7 +18,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
+app.use("/api", indexRouter);
+app.get("/", async function (req, res) {
+  return await res.status(404).json({
+    success: false,
+    message: "404 not found!.,use `/api` instead of `/`",
+  });
+});
 app.use("/images", express.static("public/images"));
 
 // catch 404 and forward to error handler
