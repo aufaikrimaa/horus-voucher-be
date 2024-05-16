@@ -22,7 +22,8 @@
     "morgan": "~1.9.1",
     "mysql": "^2.18.1",
     "mysql2": "^3.9.7",
-    "sequelize": "^6.37.3"
+    "sequelize": "^6.37.3",
+    "uglify-js": "^3.17.4"
   },
   "description": "",
   "main": "app.js",
