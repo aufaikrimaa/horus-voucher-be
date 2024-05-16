@@ -24,11 +24,12 @@ exports.claimVoucher = async (req, res) => {
       id_user,
       tanggal_claim: new Date(),
     });
-    await voucher.update({
-      status: `${
-        voucher.status ? voucher.status : ""
-      }diklaim user ${id_user}, `,
-    });
+
+    let previousStatus = `diklaim user ${id_user}`;
+    let newStatus = voucher.status
+      ? [...voucher.status, previousStatus]
+      : [previousStatus];
+    await voucher.update({ status: newStatus });
     res.status(200).json({
       success: true,
       message: "Voucher berhasil diklaim",
@@ -47,17 +48,11 @@ exports.removeVoucherClaim = async (req, res) => {
     const voucher = await Voucher.findOne({ where: { id: claim.id_voucher } });
 
     // await voucher.update({ status: null });
-
-    const newStatus = voucher.status.replace(
-      `diklaim user ${claim.id_user}, `,
-      ""
+    const newStatus = voucher.status.filter(
+      (status) => !status.includes(`diklaim user ${claim.id_user}`)
     );
 
-    if (voucher.status === `diklaim user ${claim.id_user}, `) {
-      await voucher.update({ status: null });
-    } else {
-      await voucher.update({ status: newStatus });
-    }
+    await voucher.update({ status: newStatus });
     await claim.destroy();
     res.status(200).json({
       success: true,

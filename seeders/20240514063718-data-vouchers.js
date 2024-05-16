@@ -26,8 +26,9 @@ module.exports = {
         vouchers.push({
           id: voucherId++,
           nama: voucherName,
-          kategori: category,
           foto: fotoPath,
+          kategori: category,
+          status: "[]",
           createdAt: new Date(),
           updatedAt: new Date(),
         });

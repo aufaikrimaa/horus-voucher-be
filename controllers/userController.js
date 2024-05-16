@@ -8,6 +8,13 @@ exports.register = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ message: "Username telah digunakan!" });
     }
+    if (username === "" || password === "" || email === "" || nama === "") {
+      return res.status(400).json({ message: "Lengkapi data anda!" });
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ message: "Email tidak valid!" });
+    }
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
       username,
