@@ -35,10 +35,10 @@ module.exports = {
       });
     });
 
-    await queryInterface.bulkInsert("vouchers", vouchers, {});
+    await queryInterface.bulkInsert("Vouchers", vouchers, {});
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("vouchers", null, {});
+    await queryInterface.bulkDelete("Vouchers", null, {});
   },
 };
